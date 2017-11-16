@@ -1,0 +1,35 @@
+#!/usr/bin/python
+import sys
+from PIL import Image
+import glob
+import os
+
+images_folder_path = sys.argv[1:]
+images = []
+if not images_folder_path:
+    print("You did not provide path will merge images from here!")
+    images_folder_path = os.getcwd().__str__()
+    print(images_folder_path)
+else:
+    images_folder_path = images_folder_path[0].__str__()
+
+for file in glob.glob(images_folder_path + "/*.png"):
+    im = Image.open(file)
+    images.append(im)
+
+if images:
+    widths, heights = zip(*(i.size for i in images))
+    total_width = sum(widths)
+    max_height = max(heights)
+
+    new_im = Image.new('RGB', (total_width, max_height))
+
+    x_offset = 0
+    for im in images:
+        new_im.paste(im, (x_offset, 0))
+        x_offset += im.size[0]
+
+    print("saving to:" + images_folder_path)
+    new_im.save(images_folder_path + '/merged-' + len(images).__str__() + '-Images.jpg')
+else:
+    print("Did not find any .png images")
