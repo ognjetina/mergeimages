@@ -5,7 +5,6 @@ setup(
     author='ognjetina',
     author_email='laogdo@gmail.com',
     version='0.1',
-    scripts=['mergeimages'],
+    scripts=['mergeimages/mergeimages'],
     install_requires=['image', 'olefile', 'Pillow', 'pytz'],
-    classifiers=['Programming Language:: Python:: 3.6']
 )
